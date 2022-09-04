@@ -51,7 +51,7 @@ export default function CreateItem() {
 
   async function listNFTForSale() {
     const url = await uploadToIPFS()
-    const web3Modal = new Web3Modal()
+    const web3Modal = new Web3Modal()  
     const connection = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(connection)
     const signer = provider.getSigner()
@@ -63,7 +63,7 @@ export default function CreateItem() {
     listingPrice = listingPrice.toString()
     let transaction = await contract.createToken(url, price, { value: listingPrice })
     await transaction.wait()
-   
+    // pushes to new page
     router.push('/')
   }
 
@@ -73,15 +73,17 @@ export default function CreateItem() {
         <input 
           placeholder="Asset Name"
           className="mt-8 border rounded p-4"
+          //only changes name after update
           onChange={e => updateFormInput({ ...formInput, name: e.target.value })}
         />
         <textarea
           placeholder="Asset Description"
           className="mt-2 border rounded p-4"
+          //only changes description, etc
           onChange={e => updateFormInput({ ...formInput, description: e.target.value })}
         />
         <input
-          placeholder="Asset Price in Eth"
+          placeholder="Asset Price in Matic"
           className="mt-2 border rounded p-4"
           onChange={e => updateFormInput({ ...formInput, price: e.target.value })}
         />
@@ -96,8 +98,8 @@ export default function CreateItem() {
             <img className="rounded mt-4" width="350" src={fileUrl} />
           )
         }
-        <button onClick={listNFTForSale} className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg">
-          Create NFT
+        <button onClick={listNFTForSale} className="font-bold mt-4 bg-green-500 text-white rounded p-4 shadow-lg">
+          Create NFT!
         </button>
       </div>
     </div>
